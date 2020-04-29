@@ -5,7 +5,7 @@ class QuickSort {
    // `values` is an array that will be modified - partially sorted - to find
    //  the Kth lowest value (index).
    static select( values, index ) {
-      return quickselect( values, index, 0, values.length - 1 );
+      return this.quickselect( values, index, 0, values.length - 1 );
    }
    
    //--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class QuickSort {
       let hi = values.length - 1;
       let k = Math.floor(values.length / 2 - 0.5);
       if( (values.length & 1) === 1 )
-         return this.select( values, k, lo, hi );
+         return this.quickselect( values, k, lo, hi );
       else
          return this.quickmedian( values, k, lo, hi );
    }
@@ -41,14 +41,14 @@ class QuickSort {
    //-----------------------------------------------------------------------------
    // Quickselect function. Find the kth value in A that is known to be between
    //  `lo` and `hi` inclusive.
-   static select( A, k, lo, hi ) {
+   static quickselect( A, k, lo, hi ) {
       if( lo === hi ) return A[lo];
       
       let p = this.partition( A, lo, hi );
       if( k <= p ) {
-         return this.select( A, k, lo, p );
+         return this.quickselect( A, k, lo, p );
       } else { // k > p
-         return this.select( A, k, p + 1, hi );
+         return this.quickselect( A, k, p + 1, hi );
       }
    }
    
@@ -65,8 +65,8 @@ class QuickSort {
       } else {
          // The numbers sit on opposite sides of the partition, so use two selects
          //  to find them. This should always happen eventually.
-         return ( (this.select( A, k, lo, p ) 
-                 + this.select( A, k + 1, p + 1, hi )) / 2 );
+         return ( (this.quickselect( A, k, lo, p ) 
+                 + this.quickselect( A, k + 1, p + 1, hi )) / 2 );
       }
    }
    
