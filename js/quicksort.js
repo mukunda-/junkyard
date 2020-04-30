@@ -15,17 +15,6 @@ class QuickSort {
    }
    
    //--------------------------------------------------------------------------
-   // Quicksort implementation.
-   static quicksort( values, lo, hi ) {
-      if( lo < hi ) {
-         let p = this.partition( values, lo, hi );
-         this.quicksort( values, lo, p );
-         return this.quicksort( values, p + 1, hi );
-         // Return just in case for tailcall.
-      }
-   }
-   
-   //--------------------------------------------------------------------------
    // Returns the median of values sorted. This modifies the values given. Copy
    //  the array if that isn't desired.
    static median( values ) {
@@ -36,6 +25,17 @@ class QuickSort {
          return this.quickselect( values, k, lo, hi );
       else
          return this.quickmedian( values, k, lo, hi );
+   }
+   
+   //--------------------------------------------------------------------------
+   // Quicksort implementation.
+   static quicksort( values, lo, hi ) {
+      if( lo < hi ) {
+         let p = this.partition( values, lo, hi );
+         this.quicksort( values, lo, p );
+         return this.quicksort( values, p + 1, hi );
+         // Return just in case for tailcall.
+      }
    }
    
    //-----------------------------------------------------------------------------
